@@ -398,7 +398,10 @@ void receiveEvent(int received) {
         Serial.println(F("DEBUG: Turn accessory pin off"));
       }
       setAccessory(LOW);
-
+#if TURNTABLE_EX_MODE == TURNTABLE
+    } else if (activity == 18 && !stepper.isRunning() && !calibrating) {
+      reverseTurntable(activity);
+#endif    
 #ifdef USE_RT_EX_TURNTABLE
     } else if ((activity >= 10) && (activity <= 17)) {
       setExtra(activity);
