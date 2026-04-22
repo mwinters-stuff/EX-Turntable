@@ -183,6 +183,7 @@ void moveHome() {
 #endif
     stepper.setCurrentPosition(0);
     lastStep = 0;
+    lastTarget = 0;
     homed = 1;
     Serial.println(F("Turntable homed successfully"));
     if (debug) {
@@ -284,8 +285,12 @@ void moveToPosition(long steps, uint8_t phaseSwitch) {
 }
 
 void reverseTurntable(uint8_t phaseSwitch){
-    // Calculate new target 180 degrees from lastTarget
-    long newTarget = lastTarget + halfTurnSteps;
+    // Calculate new target 180 degrees from current logical position.
+    long baseTarget = lastStep % fullTurnSteps;
+    if (baseTarget < 0) {
+      baseTarget += fullTurnSteps;
+    }
+    long newTarget = baseTarget + halfTurnSteps;
     if (newTarget >= fullTurnSteps) {
       newTarget -= fullTurnSteps;
     }
