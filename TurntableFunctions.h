@@ -36,7 +36,6 @@ extern bool calibrating;
 extern uint8_t homed;
 extern AccelStepper stepper;
 extern long fullTurnSteps;
-extern long halfTurnSteps;
 extern long phaseSwitchStartSteps;
 extern long phaseSwitchStopSteps;
 extern long lastTarget;
@@ -57,7 +56,6 @@ void initiateHoming();
 void initiateCalibration();
 void setLEDActivity(uint8_t activity);
 void setAccessory(bool state);
-void reverseTurntable(uint8_t phaseSwitch);
 
 #ifdef USE_RT_EX_TURNTABLE
 void setExtra(uint8_t activity);
